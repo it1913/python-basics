@@ -37,6 +37,7 @@ message = '''
 
        Andrej
 '''
+#
 # print(message)
 
 # Funkce len vrací délku řetězce
