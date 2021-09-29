@@ -159,3 +159,43 @@ funkční kód, tím lepší).
 3. Vytvořte funkci, která vygeneruje náhodná hesla pro počet osob zadaný v parametru tak, aby heslo začínalo
    3 velkými písmeny, pokračovalo 3 malými písmeny, jedním speciálním znakem (-/+*) a končilo 3 náhodnými číslicemi.
 '''
+import unicodedata
+txt = "12. 10. 2020"
+x = txt.split(". ")
+s = x[2] + "-" + x[1] + "-" + x[0]
+print(s)
+
+text = ("To je proměnná v Pythonu")
+def textFormating(t1):
+    t2 = unicodedata.normalize('NFKD', t1)
+    t3 = ''
+    for c in t2:
+        if not unicodedata.combining(c):
+            t3 += c
+    x = t3.replace(" ", "_").lower()
+    print(x)
+    y = t3.split(" ")
+    maximalni = len(y)
+    s = ""
+    for i in range(0, maximalni):
+        s += y[i].title()
+    print(s)
+
+
+import random
+import string
+def randomPassword():
+    special = '!"£$%^&*.,@#/?'
+    s = ""
+    for i in range(0, 3):
+        s +=random.choice(string.ascii_uppercase)
+    for i in range(0, 3):
+        s += random.choice(string.ascii_lowercase)
+    s += random.choice(special)
+    for i in range(0, 3):
+        s += random.choice(string.digits)
+    print(s)
+
+
+textFormating(text)
+randomPassword()
