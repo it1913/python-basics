@@ -196,6 +196,5 @@ def randomPassword():
         s += random.choice(string.digits)
     print(s)
 
-
 textFormating(text)
 randomPassword()
