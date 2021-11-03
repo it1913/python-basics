@@ -69,27 +69,27 @@ def csvfile_read(path, encoding='utf-8'):
         file.close()
     return dict_list
 
+
+header = []
 def csvfile_write(path, data=[], encoding='utf-8'):
     try:
         with open(path, mode='w', encoding=encoding, newline='\n') as file:
-            header = next(data)
-            writer = csv.DictWriter(file,fieldnames=header,delimiter =';', quotechar='"')
-            dict_list = []
-            for row in writer:
-                dict_list =writer(row)
+            writer = csv.DictWriter(file,fieldnames=data[0].keys())
+            writer.writeheader()
+            writer.writerows(data)
     except FileNotFoundError as error:
         return f'Soubor nebyl nalezen: {error}'
     except Exception as error:
         return f'Došlo k nějakému problému při otevírání souboru: {error}'
     finally:
         file.close()
-    return dict_list
+    return True
 
 
-csvdata = csvfile_read('./reality.csv')
-print(csvfile_write('./novy.csv', csvdata))
+csvdata = csvfile_read('./kniha.csv', 'windows-1250')
+csvfile_write('./novy2.csv', csvdata, 'windows-1250')
 
-# csvdata = csvfile_read('./reality.csv')
+# csvdata = csvfile_read('./kniha.csv')
 # print(type(csvdata))
 
 # txt= textfile_read('./python.txt')

@@ -32,10 +32,10 @@ print(f'point.get("x"): {point.get("x")}')
 if 'z' in point:
     print(f'point.get("z"): {point.get("z")}')
 
-# Když hodnota neexistuje, vrací 0    
+# Když hodnota neexistuje, vrací 0
 print(f'point.get("v", 0): {point.get("v", 0)}')
 
-# Odstranění prvku ze slovníku  
+# Odstranění prvku ze slovníku
 del point['x']
 print(f'point: {point}')
 
@@ -48,7 +48,7 @@ print(f'car.popitem(): {car.popitem()}')
 for key, value in point.items():
     print(f'{key} - {value}')
 
-# Dictionary comprehension - zkráceně vytvoří slovník, jehož klíče tvoří čísla od 0 do 9 a hodnoty druhé mocniny 
+# Dictionary comprehension - zkráceně vytvoří slovník, jehož klíče tvoří čísla od 0 do 9 a hodnoty druhé mocniny
 values = {x: x ** 2 for x in range(10)}
 print(f'values: {values}')
 
@@ -94,3 +94,116 @@ child3          Linus               2011
 ---------------------------------------------
 Počet záznamů: 3
 '''
+
+film= {
+  'film_1': {
+    'name': 'No Time to Die (James Bond)',
+    'year': 2021,
+    'genre': {"Akční", "Dobrodružný"},
+    'isInCinema': True,
+    'directors': ("Cary Fukunaga", "USA"),
+    'actors': ["Daniel Craig", "Ralph Fiennes", "Léa Seydouxová", "Rami Malek", "Ana de Armasová"]
+  },
+  'film_2' : {
+    'name': 'Kingsman: První mise',
+    'year': 2021,
+    'genre': {"Akční", "Komedie"},
+    'isInCinema': False,
+    'directors': ("Matthew Vaughn", "Velká Británie"),
+    'actors': ["Colin Firth", "Stanley Tucci", "Gemma Artertonová", "Ralph Fiennes"]
+  },
+  'film_3' : {
+    'name': 'Matrix',
+    'year': 1999,
+    'genre': {"Sci-fi", "Akční"},
+    'isInCinema': True,
+    'directors': ("Lana Wachowski", "USA", "Lilly Wachowski", "USA"),
+    'actors': ["Keanu Reeves", "Laurence Fishburne", "Carrie-Anne Mossová", "Hugo Weaving"]
+  }
+}
+del film['film_1']
+
+#print('We are the {} who say "{}!"'.format('knights', 'Ni'))
+
+from tabulate import tabulate
+
+informace = ["name", "year", "genre", "isInCinema", "directors", "actors"]
+pocet = []
+for f in film.keys():
+  pocet.append(f)
+
+
+# print("Slovník film")
+# print("-------------------------------------------------------------------------------")
+# print("Číslo filmu", "Jméno filmu",  "Rok vydání", "Žánr", "jeVKinech", "Režiséři", "Herci", sep="   ")
+#
+# for y in pocet:
+#   text = []
+#   text.append(y)
+#   for x in range(0, len(informace)):
+#     text.append(film[y].get(informace[x]))
+
+# s = ""
+# for t in text:
+#   s = s + str(t) + "\t"
+# print(s)
+  #print(f" {text[0]} {text[1]} {text[2]} {text[3]} {text[4]} {text[5]} {text[6]}")
+
+# print(tabulate(film["film_1"]))
+# for y in pocet:
+#   for x in range(0, len(informace)):
+#       print(tabulate(film[y].get(informace)))
+
+
+from texttable import Texttable
+
+t = Texttable()
+rows = [informace]
+#t.add_rows([informace])
+for y in pocet:
+  text = []
+  for x in range(0, len(informace)):
+    v = film[y].get(informace[x])
+    text.append(v)
+    # if type(v) is str:
+    #   text.append(v)
+    # elif type(v) is int:
+    #   text.append(v)
+    # elif type(v) is bool:
+    #   text.append(str(v))
+    # elif type(v) is set:
+    #   text.append(str(v))
+    # elif type(v) is tuple:
+    #   text.append(str(v))
+    # elif type(v) is list:
+    #   text.append(str(v))
+  rows = rows + [text]
+t.add_rows(rows)
+
+print(t.draw())
+
+film['film_4'] = {
+    'name': 'No Time to Die (James Bond)',
+    'year': 2021,
+    'genre': {"Akční", "Dobrodružný"},
+    'isInCinema': True,
+    'directors': ("Cary Fukunaga", "USA"),
+    'actors': ["Daniel Craig", "Ralph Fiennes", "Léa Seydouxová", "Rami Malek", "Ana de Armasová"]
+  }
+
+pocet = []
+for f in film.keys():
+  pocet.append(f)
+
+t = Texttable()
+rows = [informace]
+for y in pocet:
+  text = []
+  for x in range(0, len(informace)):
+    v = film[y].get(informace[x])
+    text.append(v)
+
+  rows = rows + [text]
+t.add_rows(rows)
+
+print(t.draw())
